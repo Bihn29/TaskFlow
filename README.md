@@ -65,47 +65,6 @@ Before running the project, make sure you have:
 * npm
 * MongoDB local database or MongoDB Atlas
 
-## 🔐 Environment Variables
-
-This project uses environment variables for backend, frontend, database, JWT, and socket configuration.
-
-For security reasons, real `.env` files are not included in this repository.
-
-### Backend Environment
-
-Create a `.env` file inside the `server` folder based on `.env.example`:
-
-```bash
-cp server/.env.example server/.env
-```
-
-Example `server/.env.example`:
-
-```env
-PORT=5000
-MONGODB_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret
-JWT_EXPIRES_IN=7d
-FRONTEND_URL=http://localhost:3000
-```
-
-### Frontend Environment
-
-Create a `.env.local` file inside the `client` folder based on `.env.example`:
-
-```bash
-cp client/.env.example client/.env.local
-```
-
-Example `client/.env.example`:
-
-```env
-NEXT_PUBLIC_API_URL=http://localhost:5000/api
-NEXT_PUBLIC_SOCKET_URL=http://localhost:5000
-```
-
-> Never commit real `.env`, `.env.local`, database credentials, JWT secrets, or API keys to GitHub.
-
 ## 🚀 Run in Development
 
 Install root dependencies:
