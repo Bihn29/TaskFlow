@@ -1,155 +1,168 @@
 # TaskFlow 🚀
-> Real-Time Project Management Application (Trello/Notion Mini)
 
-TaskFlow is a premium, real-time workspace and project management application built with a modern full-stack TypeScript architecture. It features drag-and-drop Kanban boards, team workspaces with granular role privileges, real-time collaboration powered by Socket.IO, nested task details, activity logs, and a clean, immersive SaaS-styled dashboard.
+TaskFlow is a real-time project management application inspired by Trello and Notion.
+It helps users manage workspaces, boards, lists, tasks, comments, assignees, deadlines, notifications, and activity logs in a clean Kanban-style interface.
 
----
+## ✨ Features
+
+* JWT authentication
+* Workspace and team management
+* Role-based access control: Owner, Admin, Member
+* Kanban board with lists and tasks
+* Drag-and-drop task movement
+* Task detail modal with description, priority, deadline, assignees, and comments
+* Real-time board updates with Socket.IO
+* Notifications for task assignments and comments
+* Activity logs for tracking project changes
+* Desktop app support with Electron
 
 ## 🛠 Tech Stack
 
-### Frontend (Client)
-- **Framework:** Next.js 14+ (App Router, React 18, TypeScript)
-- **Styling:** Tailwind CSS (Vanilla styling & CSS variables)
-- **State & Data Fetching:** TanStack Query v5 & Zustand
-- **Forms & Validation:** React Hook Form + Zod
-- **Drag & Drop:** `@dnd-kit/core` & `@dnd-kit/sortable`
-- **Real-time:** `socket.io-client`
-- **UI Icons:** `lucide-react`
+### Frontend
 
-### Backend (Server)
-- **Framework:** NestJS (TypeScript, Node.js)
-- **Database:** MongoDB + Mongoose (Schema validation, queries, and relations)
-- **Authentication:** JWT (JSON Web Tokens) with Route Guarding
-- **Real-time:** `@nestjs/platform-socket.io` & `@nestjs/websockets`
-- **Validation:** `class-validator` & `class-transformer`
+* Next.js
+* TypeScript
+* Tailwind CSS
+* TanStack Query
+* Zustand
+* React Hook Form
+* Zod
+* dnd-kit
+* Socket.IO Client
 
----
+### Backend
 
-## 📁 Monorepo Structure
+* NestJS
+* TypeScript
+* MongoDB
+* Mongoose
+* JWT Authentication
+* Socket.IO
+* class-validator
+* class-transformer
 
-```
+### Desktop
+
+* Electron
+* electron-builder
+
+## 📁 Project Structure
+
+```bash
 TaskFlow/
-├── client/          # Next.js frontend application
-├── server/          # NestJS backend application
-├── package.json     # Orchestration scripts
-└── README.md        # This file
+├── client/          # Next.js frontend
+├── server/          # NestJS backend
+├── desktop/         # Electron desktop app
+├── package.json     # Root scripts
+└── README.md
 ```
 
----
+## ⚙️ Requirements
 
-## ⚙️ Quick Start Setup
+Before running the project, make sure you have:
 
-### Prerequisites
-- [Node.js](https://nodejs.org/) (v18.x or v20.x recommended)
-- [MongoDB](https://www.mongodb.com/) running locally or a MongoDB Atlas URI
+* Node.js v18 or higher
+* npm
+* MongoDB local database or MongoDB Atlas
 
-### Installation & Launch
+## 🔐 Environment Variables
 
-1. **Clone and Navigate into the Project:**
-   ```bash
-   cd d:\tai_lieu\NewCode
-   ```
+Create a `.env` file inside the `server` folder:
 
-2. **Install Root Dependencies:**
-   ```bash
-   npm install
-   ```
+```env
+PORT=5000
+MONGODB_URI=mongodb://localhost:27017/taskflow
+JWT_SECRET=your_jwt_secret
+JWT_EXPIRES_IN=7d
+FRONTEND_URL=http://localhost:3000
+```
 
-3. **Install Client & Server Dependencies:**
-   ```bash
-   npm run install:all
-   ```
+Create a `.env.local` file inside the `client` folder:
 
-4. **Setup Environment Variables:**
-   - Copy `server/.env.example` to `server/.env` and update details (e.g., `MONGODB_URI`, `JWT_SECRET`).
-   - Copy `client/.env.local` to configure frontend environments.
+```env
+NEXT_PUBLIC_API_URL=http://localhost:5000/api
+NEXT_PUBLIC_SOCKET_URL=http://localhost:5000
+```
 
-5. **Start Development Servers:**
-   ```bash
-   npm run dev
-   ```
-   - Client is running at: [http://localhost:3000](http://localhost:3000)
-   - Server API is running at: [http://localhost:5000](http://localhost:5000)
+> Do not push real `.env` files to GitHub.
 
----
+## 🚀 Run in Development
 
-## 📋 Roadmap Phases
-- **Phase 1:** Monorepo & Environment Setup (Active)
-- **Phase 2:** Authentication & Users (JWT)
-- **Phase 3:** Workspaces, Roles & Members
-- **Phase 4:** Boards, Lists & Tasks CRUD
-- **Phase 5:** Kanban Drag & Drop with `@dnd-kit`
-- **Phase 6:** Comments, Assignees, Dates & Priorities
-- **Phase 7:** Socket.IO Real-time Integration
-- **Phase 8:** Notifications & Activity Logger
-- **Phase 9:** Dashboard Polishing, States & UI transitions
-- **Phase 10:** Seeding, Deployment & Documentation
+Install dependencies:
 
----
+```bash
+npm install
+```
 
-## 🖥️ TaskFlow Desktop App (Native Electron)
+Install client and server dependencies:
 
-TaskFlow operates as a native desktop application powered by **Electron**. It provides a premium single-window experience without showing terminal logs, starting multiple command prompts, or opening external web browsers.
+```bash
+npm run install:all
+```
 
-### ⚙️ Desktop Prerequisites
-- **MongoDB Database**: Ensure your MongoDB database is running.
-  - Recommended: Configure **MongoDB Atlas** in `server/.env` for a fully portable, out-of-the-box experience.
-  - Alternative (Local): Keep the local MongoDB Service running (`sc start MongoDB` or run `mongod` in a terminal).
-- **Node.js**: Requires Node.js v18+.
+Start the project:
 
----
-
-### 🚀 1. Run in Development Mode
-
-To start the integrated monorepo in development mode (which launches Next.js dev server, NestJS dev server, and Electron with live reload concurrently):
 ```bash
 npm run dev
 ```
 
----
+The app will run at:
 
-### 📦 2. Package Standalone Windows Executable (.exe)
+```bash
+Frontend: http://localhost:3000
+Backend:  http://localhost:5000
+```
 
-To compile the entire monorepo and package it into a self-contained, standalone Windows installer `.exe`:
+## 🖥 Build Desktop App
+
+TaskFlow can run as a Windows desktop application using Electron.
+
+Build the Windows `.exe` installer:
+
 ```bash
 npm run dist
 ```
 
-#### What this does under the hood:
-1. Rebuilds NestJS backend server to optimized production files (`server/dist/`).
-2. Rebuilds Next.js frontend client to statically optimized pages (`client/.next/`).
-3. Bundles files and compiles a production-ready Windows NSIS installer using `electron-builder`.
+The output will be generated in:
 
-#### Output Location:
-The packaged installer will be generated under the `release/` directory:
-- `release/TaskFlow Setup 1.0.0.exe` (Windows Setup Installer)
-- `release/win-unpacked/` (Unpacked standalone executable folder)
+```bash
+release/
+```
 
----
+Example output:
 
-### 🏃‍♂️ 3. Install and Launch in Production
+```bash
+release/TaskFlow Setup 1.0.0.exe
+```
 
-1. Open the `release/` folder.
-2. Double-click `TaskFlow Setup 1.0.0.exe` to run the custom NSIS setup window.
-3. Choose your installation path, create desktop and start menu shortcuts, and complete setup.
-4. Launch **TaskFlow** from your Desktop shortcut!
-   - **Zero Terminal Windows**: It programmatically launches the backend NestJS and frontend Next.js servers fully hidden under the hood (`windowsHide: true`).
-   - **Self-contained Window**: Loads `http://localhost:3000` automatically in a premium, customized glassmorphic BrowserWindow.
-   - **Clean Teardown**: Closing the app completely terminates backend/frontend sub-processes tree-wise via native `taskkill`, releasing all ports and preventing memory leaks.
+After installation, TaskFlow can be opened from the desktop shortcut like a normal Windows application.
 
----
+## 🗄 Database Note
 
-### 🛠️ Legacy Debug Helpers (Windows Batch)
+If you use local MongoDB:
 
-We preserve the legacy batch scripts strictly as **debug tools** for development:
-- `start-taskflow.bat`: Manually launches backend/frontend in dedicated command prompts and opens `http://localhost:3000` in your default browser.
-- `stop-taskflow.bat`: Gracefully kills all running local Node.js processes.
+```env
+MONGODB_URI=mongodb://localhost:27017/taskflow
+```
 
----
+Make sure MongoDB service is running before starting the app.
 
-### 🌐 Alternative: Install as PWA (Browser App)
+For better desktop app usage, MongoDB Atlas is recommended.
 
-1. Open [http://localhost:3000](http://localhost:3000) in Chrome or Edge.
-2. Click the **install icon** (⊕) in the address bar.
-3. TaskFlow will be installed as a progressive web app running without browser tabs.
+## 📌 Project Status
 
+Core features completed:
+
+* Authentication
+* Workspace management
+* Board/List/Task CRUD
+* Kanban drag-and-drop
+* Task comments and assignees
+* Real-time updates
+* Notifications
+* Activity logs
+* Electron desktop app setup
+
+## 👤 Author
+
+Developed by Bihn.
