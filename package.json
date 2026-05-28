@@ -1,0 +1,52 @@
+{
+  "name": "taskflow-monorepo",
+  "version": "1.0.0",
+  "description": "TaskFlow - Real-time Project Management App",
+  "private": true,
+  "main": "desktop/main.js",
+  "scripts": {
+    "install:all": "npm install --prefix client && npm install --prefix server --legacy-peer-deps",
+    "dev:server": "npm run start:dev --prefix server",
+    "dev:client": "npm run dev --prefix client",
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\" \"npm run electron:dev\"",
+    "electron:dev": "wait-on http://localhost:3000 && cross-env NODE_ENV=development electron .",
+    "build:server": "npm run build --prefix server",
+    "build:client": "npm run build --prefix client",
+    "build": "npm run build:server && npm run build:client",
+    "dist": "npm run build && electron-builder"
+  },
+  "build": {
+    "productName": "TaskFlow",
+    "appId": "com.taskflow.desktop",
+    "asar": false,
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "desktop/**/*",
+      "client/**/*",
+      "server/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "desktop/assets/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "TaskFlow"
+    }
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "cross-env": "^10.1.0",
+    "electron": "^41.7.1",
+    "electron-builder": "^26.8.1",
+    "wait-on": "^9.0.10"
+  }
+}
