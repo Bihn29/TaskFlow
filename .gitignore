@@ -44,3 +44,8 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+# AI and Context files
+AI_RULES.md
+DEVELOPMENT_LOG.md
+PROJECT_CONTEXT.md
