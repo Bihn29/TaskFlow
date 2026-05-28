@@ -67,28 +67,48 @@ Before running the project, make sure you have:
 
 ## 🔐 Environment Variables
 
-Create a `.env` file inside the `server` folder:
+This project uses environment variables for backend, frontend, database, JWT, and socket configuration.
+
+For security reasons, real `.env` files are not included in this repository.
+
+### Backend Environment
+
+Create a `.env` file inside the `server` folder based on `.env.example`:
+
+```bash
+cp server/.env.example server/.env
+```
+
+Example `server/.env.example`:
 
 ```env
 PORT=5000
-MONGODB_URI=mongodb://localhost:27017/taskflow
+MONGODB_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
 JWT_EXPIRES_IN=7d
 FRONTEND_URL=http://localhost:3000
 ```
 
-Create a `.env.local` file inside the `client` folder:
+### Frontend Environment
+
+Create a `.env.local` file inside the `client` folder based on `.env.example`:
+
+```bash
+cp client/.env.example client/.env.local
+```
+
+Example `client/.env.example`:
 
 ```env
 NEXT_PUBLIC_API_URL=http://localhost:5000/api
 NEXT_PUBLIC_SOCKET_URL=http://localhost:5000
 ```
 
-> Do not push real `.env` files to GitHub.
+> Never commit real `.env`, `.env.local`, database credentials, JWT secrets, or API keys to GitHub.
 
 ## 🚀 Run in Development
 
-Install dependencies:
+Install root dependencies:
 
 ```bash
 npm install
@@ -139,13 +159,9 @@ After installation, TaskFlow can be opened from the desktop shortcut like a norm
 
 ## 🗄 Database Note
 
-If you use local MongoDB:
+You can use either local MongoDB or MongoDB Atlas.
 
-```env
-MONGODB_URI=mongodb://localhost:27017/taskflow
-```
-
-Make sure MongoDB service is running before starting the app.
+For local MongoDB, make sure MongoDB service is running before starting the app.
 
 For better desktop app usage, MongoDB Atlas is recommended.
 
